@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body class="container">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="{{ user_images }}" width="30" height="30" class="rounded d-inline-block align-top" alt="">
+            {{ user_name }}
+        </a>
+    </nav>
+    <!-- Image and text -->
+    <div class="container jumbotron">
+        <h4 class="">Your Playlists</h4>
+        {%  for item in playlists %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item font-weight-bold ">{{ item }}</li>
+            </ul>
+        {% endfor %}
+    <p class="mt-5 mb-0 f text-uppercase">You are logged in. To continue with the application, use the command line interface.</p>
+    </div>
+
+</body>
+
+
+</html>
+    
