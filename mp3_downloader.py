@@ -1,11 +1,19 @@
 import csv
+from pathlib import Path
+import os
 import yt_dlp
 from youtube_search import YoutubeSearch
+from spotify import spotify_client as sp_auth
+
 
 def display_playlist_tracks(playlist):
-    name_of_playlist = playlist
-    file_name = '{}'.format(name_of_playlist)
-    with open(file_name, mode='r') as csv_file:
+    """
+    display playlist tracks from saved csv file
+    """
+    path = Path('playlist_tracks_csv/')
+    file_name = '{}'.format(playlist)
+    fpath = (path / file_name).with_suffix('.csv')
+    with fpath.open(mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         tracks = []
         line_count = 1
@@ -14,46 +22,93 @@ def display_playlist_tracks(playlist):
             tracks.append(track)
             line_count += 1
         i = 0
-        while i != len(tracks)-1:
-            print("{}. {}".format(i,tracks[i]))
+        while i != len(tracks) - 1:
+            print("{}. {}".format(i, tracks[i]))
             i += 1
         print(f'Processed {line_count} lines.')
         return tracks
 
-def find_and_download_songs(reference_file: str):
-    TOTAL_ATTEMPTS = 10
-    with open(reference_file, "r", encoding='utf-8') as file:
-        for line in file:
-            temp = line.split(",")
-            name, artist = temp[0], temp[1]
-            text_to_search = artist + " - " + name
-            best_url = None
-            attempts_left = TOTAL_ATTEMPTS
-            while attempts_left > 0:
-                try:
-                    results_list = YoutubeSearch(text_to_search, max_results=1).to_dict()
-                    print(results_list)
-                    best_url = "https://www.youtube.com/{}".format(results_list[0]['url_suffix'])
-                    print(best_url)
-                    break
-                except IndexError:
-                    attempts_left -= 1
-                    print("No valid URLs found for {}, trying again ({} attempts left).".format(
-                        text_to_search, attempts_left))
-            if best_url is None:
-                print("No valid URLs found for {}, skipping track.".format(text_to_search))
-                continue
-            # Run you-get to fetch and download the link's audio
-            print("Initiating download for {}.".format(text_to_search))
-            video_info = yt_dlp.YoutubeDL().extract_info(
-                url=best_url, download=False)
-            filename = f"{video_info['title']}.mp3"
-            options = {
-                'cachedir':False,
-                'format': 'bestaudio/best',
-                'keepvideo': False,
-                'outtmpl': filename,
-            }
-            with yt_dlp.YoutubeDL(options) as ydl:
-                ydl.download([best_url])
 
+def find_and_download_songs(reference_file: str):
+    """
+    Download tracks from youtube, referencing the playlist's tracks csv file
+    """
+    TOTAL_ATTEMPTS = 10
+    SAVE_PATH = '/'.join(os.getcwd().split('/')[:3]) + '/Downloads/' + reference_file + '/'
+    path = "playlist_tracks_csv/"
+    path = Path(path)
+    fpath = (path / reference_file).with_suffix('.csv')
+    with fpath.open(mode="r", encoding='utf-8') as file:
+        line_count = 0
+        for row in file:
+            if line_count == 0:
+                line_count += 1
+            else:
+                temp = row.split(',')
+                name, artist = temp[0], temp[1]
+                text_to_search = artist + " - " + name
+                best_url = None
+                attempts_left = TOTAL_ATTEMPTS
+                line_count += 1
+                while attempts_left > 0:
+                    try:
+                        results_list = YoutubeSearch(text_to_search, max_results=1).to_dict()
+                        best_url = "https://www.youtube.com{}".format(results_list[0]['url_suffix'])
+                        break
+                    except IndexError:
+                        attempts_left -= 1
+                        print("No valid URLs found for {}, trying again ({} attempts left).".format(
+                            text_to_search, attempts_left))
+                if best_url is None:
+                    print("No valid URLs found for {}, skipping track.".format(text_to_search))
+                    continue
+                # Run you-get to fetch and download the link's audio
+                print("Initiating download for {}.".format(text_to_search))
+                video_info = yt_dlp.YoutubeDL().extract_info(
+                    url=best_url, download=False)
+                filename = f"{video_info['title']}.mp3"
+                options = {
+                    'cachedir': False,
+                    'format': 'bestaudio/best',
+                    'keepvideo': False,
+                    'outtmpl': SAVE_PATH + filename,
+                }
+                with yt_dlp.YoutubeDL(options) as ydl:
+                    ydl.download([best_url])
+
+
+def sp_user_playlists():
+    """
+    view user playlists, playlist_items and initiate download playlist
+    """
+    """"# user details
+    user_details = sp_auth.get_user_details()
+    user_name = user_details[0]
+    user_images = user_details[1]"""
+    # get names of playlists
+    playlists = sp_auth.get_all_playlists()
+    # navigate application in cli
+    print('=================')
+    print('SELECT PLAYLIST')
+    print('=================')
+    choice = input("Enter playlist index: ")
+    try:
+        playlist_dict = playlists[choice]
+        playlist = sp_auth.get_playlist_tracks(playlist_dict)
+    except ValueError:
+        print('Enter an index of the available playlists')
+    print('=================')
+    print('PLAYLIST ITEMS')
+    print('=================')
+    display_playlist_tracks(playlist)
+    print('=================')
+    print('DOWNLOAD PLAYLIST')
+    print('=================')
+    choice = input("yes or no: ")
+    if choice == 'yes':
+        find_and_download_songs(playlist)
+    elif choice == 'no':
+        print('Great')
+    else:
+        print('Strictly yes or no!')
+    return "CLI Display"
