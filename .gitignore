@@ -1,6 +1,7 @@
-.oauth-client-credentials
-.env
-.cache
 .idea/
 .vscode/
 __pycache__/
+.oauth-client-credentials
+.env
+.cache
+
