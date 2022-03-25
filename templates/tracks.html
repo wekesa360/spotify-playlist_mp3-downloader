@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/apple-touch-icon.png")>
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/favicon-16x16.png">
+    <link rel="manifest" href="../static/img/site.webmanifest">
+    <title>PlayIt - tracks</title>
+
+</head>
+<body>
+<div class="tilesWrap user">
+    <div id="mySidenav" class="sidenav">
+        <a href="{{ url_for( 'view_playlist') }}" id="back">Back</a>
+    </div>
+    <h2 class="heading">Playlist Tracks</h2>
+</div>
+
+<ul class="tilesWrap trackTiles">
+	<li>
+        {% for item in tracks %}
+		<p>
+		{{ loop.index}}. {{ item }}
+		</p>
+        {% endfor %}
+	</li>
+</ul>
+</body>
+</html>

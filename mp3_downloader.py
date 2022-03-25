@@ -1,9 +1,9 @@
 import csv
 from pathlib import Path
+import shutil
 import os
 import yt_dlp
 from youtube_search import YoutubeSearch
-from spotify import spotify_client as sp_auth
 
 
 def display_playlist_tracks(playlist):
@@ -31,10 +31,13 @@ def display_playlist_tracks(playlist):
 
 def find_and_download_songs(reference_file: str):
     """
-    Download tracks from youtube, referencing the playlist's tracks csv file
+    Download tracks from YouTube, referencing the playlist's tracks csv file
     """
     TOTAL_ATTEMPTS = 10
-    SAVE_PATH = '/'.join(os.getcwd().split('/')[:3]) + '/Downloads/' + reference_file + '/'
+    saved_playlist_zip_file = ''.join(e for e in reference_file if e.isalnum())
+    filepath = os.path.join('Downloads/', saved_playlist_zip_file)
+    if not os.path.exists('Downloads/{}/'.format(saved_playlist_zip_file)):
+        os.makedirs('Downloads/{}'.format(saved_playlist_zip_file))
     path = "playlist_tracks_csv/"
     path = Path(path)
     fpath = (path / reference_file).with_suffix('.csv')
@@ -71,44 +74,9 @@ def find_and_download_songs(reference_file: str):
                     'cachedir': False,
                     'format': 'bestaudio/best',
                     'keepvideo': False,
-                    'outtmpl': SAVE_PATH + filename,
+                    'outtmpl': filepath + '/' + filename,
                 }
                 with yt_dlp.YoutubeDL(options) as ydl:
                     ydl.download([best_url])
-
-
-def sp_user_playlists():
-    """
-    view user playlists, playlist_items and initiate download playlist
-    """
-    """"# user details
-    user_details = sp_auth.get_user_details()
-    user_name = user_details[0]
-    user_images = user_details[1]"""
-    # get names of playlists
-    playlists = sp_auth.get_all_playlists()
-    # navigate application in cli
-    print('=================')
-    print('SELECT PLAYLIST')
-    print('=================')
-    choice = input("Enter playlist index: ")
-    try:
-        playlist_dict = playlists[choice]
-        playlist = sp_auth.get_playlist_tracks(playlist_dict)
-    except ValueError:
-        print('Enter an index of the available playlists')
-    print('=================')
-    print('PLAYLIST ITEMS')
-    print('=================')
-    display_playlist_tracks(playlist)
-    print('=================')
-    print('DOWNLOAD PLAYLIST')
-    print('=================')
-    choice = input("yes or no: ")
-    if choice == 'yes':
-        find_and_download_songs(playlist)
-    elif choice == 'no':
-        print('Great')
-    else:
-        print('Strictly yes or no!')
-    return "CLI Display"
+    print(filepath)
+    shutil.make_archive(filepath, 'zip', filepath)

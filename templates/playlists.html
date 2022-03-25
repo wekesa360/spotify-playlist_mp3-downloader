@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/apple-touch-icon.png")>
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/favicon-16x16.png">
+    <link rel="manifest" href="../static/img/site.webmanifest">
+    <title>PlayIt - playlits</title>
+    <script type="text/javascript" src="../static/js/main.js"></script>
+
+</head>
+<body>
+<div class="tilesWrap user">
+    <nav>
+        <div id="mySidenav" class="sidenav">
+            <a href="{{ url_for( 'logout') }}" id="logout">Logout    . <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+    </div>
+    </nav>
+    <div>
+    <img class="user-img" src="{{ user_images }}">
+    <h2>{{ user_name }}</h2>
+    <h2 class="heading">My Playlists</h2>
+    </div>
+</div>
+<ul class="tilesWrap">
+
+    {% for key, value in playlists.items() %}
+	<li>
+        <img  src={{ value }}>
+		<p>
+		{{ key }}
+		</p>
+        <form method="post" action="/available_playlists">
+            <button name="view_tracks_button"  value="{{ key }}">View</button>
+            <p>  </p>
+            <button id="btnFetch" class="spinner-button btn btn-primary mb-2" name="download_button" value="{{ key }}">Convert</button>
+        </form>
+	</li>
+    {% endfor %}
+
+</ul>
+</body>
+
+</html>
+    
