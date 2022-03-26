@@ -70,14 +70,15 @@ def view_playlist():
         if request.method == 'POST':
             if request.form.get('view_tracks_button') == key[0]:
                 playlist_id = key[1]
+                # view track
                 tracks = sp_auth.get_playlist_tracks(playlist_id)
                 return render_template('tracks.html', tracks=tracks)
             if request.form.get('download_button') == key[0]:
                 playlist_id = key[1]
                 playlist_name = key[0]
                 playlist_cover_img = playlists_names[playlist_name]
-                print(key)
                 sp_auth.write_playlist_tracks(playlist_id, playlist_name)
+                # download playlist
                 find_and_download_songs(playlist_name)
                 formatted_playlist_name = ''.join(e for e in playlist_name if e.isalnum())
                 download_zip = "{}.zip".format(str(formatted_playlist_name))
@@ -92,7 +93,7 @@ def view_playlist():
 
     return rendered
 
-
+# download playlist as zipped folder
 @app.route('/download/<file_name>')
 def download(file_name):
     filepath = os.path.join('Downloads/', file_name)

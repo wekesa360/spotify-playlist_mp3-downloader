@@ -12,6 +12,7 @@ def display_playlist_tracks(playlist):
     """
     path = Path('playlist_tracks_csv/')
     file_name = '{}'.format(playlist)
+    # read from existing csv file
     fpath = (path / file_name).with_suffix('.csv')
     with fpath.open(mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -65,7 +66,7 @@ def find_and_download_songs(reference_file: str):
                 if best_url is None:
                     print("No valid URLs found for {}, skipping track.".format(text_to_search))
                     continue
-                # Run you-get to fetch and download the link's audio
+                # run you-get to fetch and download the link's audio
                 print("Initiating download for {}.".format(text_to_search))
                 video_info = yt_dlp.YoutubeDL().extract_info(
                     url=best_url, download=False)
@@ -79,4 +80,5 @@ def find_and_download_songs(reference_file: str):
                 with yt_dlp.YoutubeDL(options) as ydl:
                     ydl.download([best_url])
     print(filepath)
+    # write downloaded playlist folder and zip it
     shutil.make_archive(filepath, 'zip', filepath)

@@ -29,7 +29,7 @@ STATE = ''
 SHOW_DIALOG_bool = True
 SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
 
-
+# spotify authentication credentials
 def create_spotify_oauth():
     """
     spotify api credentials
@@ -40,7 +40,7 @@ def create_spotify_oauth():
         redirect_uri=REDIRECT_URI,
         scope=SCOPE)
 
-
+# spotify login and authorization
 def login():
     """
     login spotify
@@ -50,7 +50,7 @@ def login():
     print(auth_url)
     return auth_url
 
-
+# get access token
 def get_token():
     """
     check token expires in, and refresh
@@ -114,6 +114,7 @@ def get_all_playlists():
     sp = verify_session()
     playlists = sp.current_user_playlists()
     dict_playlists = {}
+    print(playlists)
     for i, playlist in enumerate(playlists['items']):
         i = str(i)
         dict_playlists[i] = [playlist['name'], playlist['id'], playlist['images'][0]['url']]
@@ -136,11 +137,13 @@ def write_playlist_tracks(playlist_id, playlist_name: str):
         path.mkdir(parents=True)
     else:
         print(path)
+        # write playlist into csv file
         fpath = (path / playlist_name).with_suffix('.csv')
         with fpath.open(mode='w+', encoding='utf-8') as file_out:
             writer = csv.DictWriter(file_out, fieldnames=["name", "artists", "spotify_url"])
             writer.writeheader()
             while True:
+                # filter playlist_tracks items
                 for item in playlist_tracks['items']:
                     if 'track' in item:
                         track = item['track']
@@ -172,6 +175,7 @@ def get_playlist_tracks(playlist_id):
     sp = verify_session()
     playlist_items = []
     playlist_tracks = sp.playlist_items(playlist_id)
+    print(playlist_tracks)
     while True:
         for item in playlist_tracks['items']:
             if 'track' in item:
