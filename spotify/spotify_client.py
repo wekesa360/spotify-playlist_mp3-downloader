@@ -118,11 +118,6 @@ def get_all_playlists():
     for i, playlist in enumerate(playlists['items']):
         i = str(i)
         dict_playlists[i] = [playlist['name'], playlist['id'], playlist['images'][0]['url']]
-    """print('====================')
-    print('AVAILABLE PLAYLISTS')
-    print('====================')
-    for key in dict_playlists:
-        print("{}. {}".format(key, dict_playlists[key]))"""
     return dict_playlists
 
 
