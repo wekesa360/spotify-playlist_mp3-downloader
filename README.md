@@ -30,5 +30,5 @@ From the Homepage, login to spotify and view playlist tracks and download the pl
 ### Images
 
 *Homepage*
-<img src="https://drive.google.com/file/d/1K6FVTYOTyNW_wAj0MJlgCojFb8HydO26" placeholder="logo.png" style="width: 150px;">
+<img src="https://drive.google.com/file/d/1K6FVTYOTyNW_wAj0MJlgCojFb8HydO26/" placeholder="logo.png" style="width: 150px;">
 
