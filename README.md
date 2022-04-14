@@ -1,6 +1,6 @@
 ## PlayIt
-
-A spotify playlist Downloader.
+<img src="https://drive.google.com/file/d/10TuqhW0HPxNEfns12Wi6NX-tQ5w_PZqE/view?usp=sharing" placeholder="logo.png" style="width: 24px;">
+A spotify playlist Downloader, bulit using Python-flask, html, js and css for the front end. It gives a spotify user the capabilities to view their playlists, available songs within the playlists and be able to download that very playlist inform of a zipped folder. 
 
 ### Requirements
 
@@ -26,3 +26,9 @@ pip install -r requirements.txt
  ```
 
 From the Homepage, login to spotify and view playlist tracks and download the playlist.
+
+### Images
+
+*Homepage*
+<img src="https://drive.google.com/file/d/1K6FVTYOTyNW_wAj0MJlgCojFb8HydO26/view?usp=sharing" placeholder="logo.png" style="width: 150px;">
+
