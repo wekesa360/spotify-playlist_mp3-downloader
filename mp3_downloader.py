@@ -14,7 +14,7 @@ def display_playlist_tracks(playlist):
     file_name = '{}'.format(playlist)
     # read from existing csv file
     fpath = (path / file_name).with_suffix('.csv')
-    with fpath.open(mode='r') as csv_file:
+    with fpath.open(mode='w') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         tracks = []
         line_count = 1
@@ -23,10 +23,10 @@ def display_playlist_tracks(playlist):
             tracks.append(track)
             line_count += 1
         i = 0
-        while i != len(tracks) - 1:
-            print("{}. {}".format(i, tracks[i]))
-            i += 1
-        print(f'Processed {line_count} lines.')
+        # while i != len(tracks) - 1:
+        #     print("{}. {}".format(i, tracks[i]))
+        #     i += 1
+        # print(f'Processed {line_count} lines.')
         return tracks
 
 

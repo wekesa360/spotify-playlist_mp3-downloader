@@ -170,7 +170,7 @@ def get_playlist_tracks(playlist_id):
     sp = verify_session()
     playlist_items = []
     playlist_tracks = sp.playlist_items(playlist_id)
-    print(playlist_tracks)
+    # print(playlist_tracks)
     while True:
         for item in playlist_tracks['items']:
             if 'track' in item:
