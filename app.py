@@ -65,7 +65,7 @@ def view_playlist():
     for key in playlists.items():
         playlists_names[key[1][0]] = "{}".format(key[1][2])
         playlist_dict[key[1][0]] = "{}".format(key[1][1])
-    print(playlists_names)
+    # print(playlists_names)
     for key in playlist_dict.items():
         if request.method == 'POST':
             if request.form.get('view_tracks_button') == key[0]:
@@ -82,7 +82,7 @@ def view_playlist():
                 find_and_download_songs(playlist_name)
                 formatted_playlist_name = ''.join(e for e in playlist_name if e.isalnum())
                 download_zip = "{}.zip".format(str(formatted_playlist_name))
-                print(download_zip)
+                print("Download ", download_zip)
                 return render_template('download.html', file_name=playlist_name, download_zip=download_zip,
                                        playlist_cover_img=playlist_cover_img)
             else:
