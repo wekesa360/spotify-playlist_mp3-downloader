@@ -14,6 +14,14 @@ pip install -r requirements.txt
 
  ## Usage
 
+Set up a .env file that will have all the necessary environment variables to run the application. i.e
+    1.CLIENT ID(for the spotify api)
+    2.CLIENT SECRET(for the spotify api)
+    3.SCOPE(for the spotify api)
+    4.SECRET KEY(for the flask session)
+    
+
+
  Run the flask server with
 
  ```
