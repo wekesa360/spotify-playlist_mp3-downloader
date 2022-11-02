@@ -1,6 +1,6 @@
 <a href="https://drive.google.com/uc?export=view&id=10TuqhW0HPxNEfns12Wi6NX-tQ5w_PZqE"><img src="https://drive.google.com/uc?export=view&id=10TuqhW0HPxNEfns12Wi6NX-tQ5w_PZqE" style="width: 155px; max-width: 100%; height: auto" title="Click to enlarge picture" /></a>
 
-A spotify playlist Downloader, bulit using Python-flask, html, js and css for the front end. It gives a spotify user the capabilities to view their playlists, available songs within the playlists and be able to download that very playlist inform of a zipped folder. 
+A spotify playlist Downloader, bulit using Python-flask, html, js and css for the front end. It gives a spotify user the capabilities to view their playlists, available songs within the playlists and be able to download that very playlist in form of a zipped folder. 
 
 ### Requirements
 
