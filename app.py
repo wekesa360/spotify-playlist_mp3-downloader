@@ -19,7 +19,7 @@ def homepage():
 
 
 # spotify login
-@app.route('/spotify_login')
+@app.route('/spotify/login')
 def spotify_login():
     """
     Login to spotify, through the browser
@@ -40,7 +40,7 @@ def spotify_authorize():
     token_info = sp_oauth.get_access_token(code)
     session["token_info"] = token_info
     sp_auth.get_token()
-    return redirect('/available_playlists')
+    return redirect('/available/playlists')
 
 
 # logout from spotify
@@ -52,7 +52,7 @@ def logout():
 
 
 # render playlist
-@app.route('/available_playlists', methods=['GET', 'POST'])
+@app.route('/available/playlists', methods=['GET', 'POST'])
 def view_playlist():
     # user details
     user_details = sp_auth.get_user_details()
@@ -86,7 +86,7 @@ def view_playlist():
                 return render_template('download.html', file_name=playlist_name, download_zip=download_zip,
                                        playlist_cover_img=playlist_cover_img)
             else:
-                redirect('/available_playlists')
+                redirect('/available/playlists')
     with app.app_context():
         rendered = render_template('playlists.html', playlists=playlists_names,
                                    user_name=user_name, user_images=user_images)
