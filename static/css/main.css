@@ -1,46 +1,18 @@
 body {
-	background: #262a2b;
+	background: url('https://images.pexels.com/photos/128611/pexels-photo-128611.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+	no-repeat center center;
+	background-size: cover;
+	display: grid;
+	font-family: 'Inconsolata', monospace;
+	min-height: 100vh;
+	place-items: center;
+  }
+
+nav {
+	background-color: rgb(228, 228, 228);
 }
 
-/* Style the links inside the sidenav */
-#mySidenav a {
-  position: absolute; /* Position them relative to the browser window */
-  left: -98px; /* Position them outside of the screen */
-  transition: 0.3s; /* Add transition on hover */
-  padding: 15px; /* 15px padding */
-  width: 100px; /* Set a specific width */
-  text-decoration: none; /* Remove underline */
-  font-size: 20px; /* Increase font size */
-  color: white; /* White text color */
-  border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
-}
-
-#mySidenav a:hover {
-  left: 0; /* On mouse-over, make the elements appear as they should */
-}
-
-/* The about link: 20px from the top with a green background */
-#about {
-  top: 20px;
-  background-color: #04AA6D;
-}
-
-#blog {
-  top: 80px;
-  background-color: #2196F3; /* Blue */
-}
-
-#logout {
-  top: 140px;
-  background-color: #f44336; /* Red */
-}
-
-#back {
-  top: 200px;
-  background-color: #555 /* Light Black */
-}
 .user{
-  font-family: 'helvetica', san-serif, serif;
     color: #b7b7b7;
     margin-bottom: 5px;
     margin-top: 5px;
@@ -48,53 +20,36 @@ body {
 .user-img{
     border-radius: 100%;
 }
-.heading{
-    font-family: 'helvetica', san-serif, serif;
-    color: #b7b7b7;
-    margin-bottom: 5px;
-    font-size: 70px;
-	opacity: 0.6;
-	top: 50px;
-	right: 10px;
-	transition: all 0.3s ease-in-out;
 
-}
-.tilesWrap {
-	padding: 0;
-	margin: 50px auto;
-	list-style: none;
-	text-align: center;
-}
-.tilesWrap li {
+.cardWrap button {
 	display: inline-block;
-	width: 20%;
-	min-width: 200px;
-	max-width: 230px;
-	padding: 80px 20px 40px;
 	position: relative;
 	vertical-align: top;
-	margin: 10px;
 	font-family: 'helvetica', san-serif, serif;
-	min-height: 25vh;
 	background: #262a2b;
 	border: 1px solid #252727;
 	text-align: left;
 }
+
 .trackTiles li {
 	display: inline-block;
 	width: 100%;
-	min-width: 300px;
-	max-width: 530px;
-	padding: 80px 20px 40px;
+	height: 900px;
+	overflow-y: scroll;
+	min-width: 70%;
+	max-width: 100%;
+	padding: 30px 20px 40px;
 	position: relative;
 	vertical-align: top;
 	margin: 10px;
-	font-family: 'helvetica', san-serif, serif;
+	color:rgb(219, 219, 219);
+	background-color: rgb(38, 42, 43, 0.8);
 	min-height: 25vh;
-	background: #262a2b;
 	border: 1px solid #252727;
 	text-align: left;
 }
+
+
 .tilesWrap li h2 {
 	font-size: 114px;
 	margin: 0;
@@ -104,17 +59,8 @@ body {
 	right: 10px;
 	transition: all 0.3s ease-in-out;
 }
-.tilesWrap li h3 {
-	font-size: 20px;
-	color: #b7b7b7;
-	margin-bottom: 5px;
-}
-.tilesWrap li p {
-	font-size: 12px;
-	line-height: 16px;
-	color: #b7b7b7;
-	margin-top: 5px;
-}
+
+
 .tilesWrap li button {
 	background: transparent;
 	border: 1px solid #b7b7b7;
@@ -160,119 +106,51 @@ body {
 	opacity: 0.6;
 }
 
-.tilesWrap li:before {
-	content: '';
-	position: absolute;
-	top: -2px;
-	left: -2px;
-	right: -2px;
-	bottom: -2px;
-	z-index: -1;
-	background: #fff;
-	transform: skew(2deg, 2deg);
-}
 .tilesWrap li:after {
 	content: '';
 	position: absolute;
-	width: 40%;
+	width: 60%;
 	height: 100%;
 	left: 0;
 	top: 0;
 	background: rgba(255, 255, 255, 0.02);
 }
 
-.tilesWrap li:nth-child(1):before {
-	background: #C9FFBF;
-background: -webkit-linear-gradient(to right, #FFAFBD, #C9FFBF);
-background: linear-gradient(to right, #FFAFBD, #C9FFBF);
-}
-.tilesWrap li:nth-child(2):before {
-	background: #f2709c;
-background: -webkit-linear-gradient(to right, #ff9472, #f2709c);
-background: linear-gradient(to right, #ff9472, #f2709c);
-}
-.tilesWrap li:nth-child(3):before {
-	background: #c21500;
-background: -webkit-linear-gradient(to right, #ffc500, #c21500);
-background: linear-gradient(to right, #ffc500, #c21500);
-}
-.tilesWrap li:nth-child(4):before {
-	background: #FC354C;
-background: -webkit-linear-gradient(to right, #0ABFBC, #FC354C);
-background: linear-gradient(to right, #0ABFBC, #FC354C);
+.cardWrap div:hover h2 {
+	top: 0px;
+	opacity: 1;
 }
 
-img {
-  width: 200px;
+.cardWrap div:after {
+	position: absolute;
+	width: 60%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: rgba(255, 255, 255, 0.002);
+	z-index: -1;
 }
+
+.card {
+	background-color: rgb(37, 39, 39, 0.5);
+}
+
 a, a:hover, a:focus, a:active {
       text-decoration: none;
       color: inherit;
 }
-div.loading {
-    width: 35px;
-    height: 35px;
-    display: none;
-    background: url(/static/img/loadingimage.gif) no-repeat;
-    cursor: wait;
-    }
-.buttonload {
-  background-color: #04AA6D; /* Green background */
-  border: none; /* Remove borders */
-  color: white; /* White text */
-  padding: 12px 24px; /* Some padding */
-  font-size: 18px; /* Set a font-size */
-}
 
-/* Add a right margin to each icon */
-.fa {
-  margin-left: -12px;
-  margin-right: 8px;
-}
 
 .tilesWrapHome {
-	padding: 0;
-	margin: 50px auto;
+	background-color: rgb(38, 42, 43, 0.4);
+	margin: 0px 400px !important;
+	padding: 50px;
 	list-style: none;
 	text-align: center;
+	font-family: 'Inconsolata', monospace !important;
 }
-.tilesWrapHome div {
-	display: inline-block;
-	width: 50%;
-	min-width: 200px;
-	max-width: 830px;
-	padding: 80px 20px 40px;
-	position: relative;
-	vertical-align: top;
-	margin: 10px;
-	font-family: 'helvetica', san-serif, serif;
-	min-height: 25vh;
-	background: #262a2b;
-	border: 1px solid #252727;
-	text-align: center;
-}
-.tilesWrapHome div h3 {
-	font-size: 20px;
-	color: #b7b7b7;
-	margin-bottom: 5px;
 
-}
-.tilesWrapHome div button{
-	border: 1px solid #b7b7b7;
-	padding: 10px 50px;
-	background-color: transparent;
-	color: #b7b7b7;
-	border-radius: 3px;
-	position: relative;
-	text-align: center;
-	margin-top: 20px;
-	cursor: pointer;
-	overflow: hidden;
-}
-.tilesWrapHome div button:hover {
-	color: #262a2b;
-	background-color: #b7b7b7;
-}
+
 
  .buttonbox {
      position: absolute;
@@ -316,4 +194,8 @@ div.loading {
 
  .fa:hover {
      color: #fff
+ }
+
+ .row {
+	flex-direction: row;
  }
