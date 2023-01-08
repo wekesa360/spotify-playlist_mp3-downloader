@@ -13,6 +13,7 @@ load_dotenv()
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 
+
 # spotify urls
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
 SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
@@ -47,7 +48,6 @@ def login():
     """
     sp_oauth = create_spotify_oauth()
     auth_url = sp_oauth.get_authorize_url()
-    print(auth_url)
     return auth_url
 
 # get access token
@@ -89,8 +89,6 @@ def logout():
         # Remove the CACHE file (.cache-test) so that a new user can authorize.
         os.remove(".cache")
         session.clear()
-        for key in list(session.keys()):
-            session.pop(key)
     except OSError as e:
         print("Error: %s - %s." % (e.filename, e.strerror))
 
@@ -114,7 +112,6 @@ def get_all_playlists():
     sp = verify_session()
     playlists = sp.current_user_playlists()
     dict_playlists = {}
-    print(playlists)
     for i, playlist in enumerate(playlists['items']):
         i = str(i)
         dict_playlists[i] = [playlist['name'], playlist['id'], playlist['images'][0]['url']]
@@ -170,7 +167,6 @@ def get_playlist_tracks(playlist_id):
     sp = verify_session()
     playlist_items = []
     playlist_tracks = sp.playlist_items(playlist_id)
-    # print(playlist_tracks)
     while True:
         for item in playlist_tracks['items']:
             if 'track' in item:

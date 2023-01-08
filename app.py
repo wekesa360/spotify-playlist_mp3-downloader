@@ -1,4 +1,6 @@
 from flask import Flask, request, redirect, session, render_template, send_file
+from flask_session import Session
+from flask_sqlalchemy import SQLAlchemy
 import spotify.spotify_client as sp_auth
 from mp3_downloader import find_and_download_songs
 import os
@@ -7,10 +9,30 @@ from dotenv import load_dotenv
 
 load_dotenv('.env')
 app = Flask(__name__)
-
-app.secret_key = os.getenv('SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['SESSION_TYPE'] = 'sqlalchemy'
 app.config['SESSION_COOKIE_NAME'] = 'spotify-login-session'
-PORT = 5000
+
+db = SQLAlchemy(app)
+
+app.config['SESSION_SQLALCHEMY'] = db
+Session(app)
+
+
+# @app.route('/set/<value>')
+# def set_session(value):
+#     session['value'] = value
+#     return f'The value you set is: {value}'
+
+
+# @app.route('/get')
+# def get_session():
+#     return f"THe value in the session is: {session.get('value')}"
+
+
+
+
 
 
 @app.route('/')
@@ -35,7 +57,6 @@ def spotify_authorize():
     application callback endpoint
     """
     sp_oauth = sp_auth.create_spotify_oauth()
-    session.clear()
     code = request.args.get('code')
     token_info = sp_oauth.get_access_token(code)
     session["token_info"] = token_info
@@ -65,7 +86,6 @@ def view_playlist():
     for key in playlists.items():
         playlists_names[key[1][0]] = "{}".format(key[1][2])
         playlist_dict[key[1][0]] = "{}".format(key[1][1])
-    # print(playlists_names)
     for key in playlist_dict.items():
         if request.method == 'POST':
             if request.form.get('view_tracks_button') == key[0]:
@@ -83,7 +103,7 @@ def view_playlist():
                 formatted_playlist_name = ''.join(e for e in playlist_name if e.isalnum())
                 download_zip = "{}.zip".format(str(formatted_playlist_name))
                 print("Download ", download_zip)
-                return render_template('download.html', file_name=playlist_name, download_zip=download_zip,
+                return render_template('download_playlist.html', file_name=playlist_name, download_zip=download_zip,
                                        playlist_cover_img=playlist_cover_img)
             else:
                 redirect('/available/playlists')
@@ -101,4 +121,5 @@ def download(file_name):
 
 
 if __name__ == "__main__":
+    PORT = 5000
     app.run(debug=True, port=PORT)
