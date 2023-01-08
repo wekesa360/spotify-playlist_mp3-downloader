@@ -4,6 +4,7 @@ import shutil
 import os
 import yt_dlp
 from youtube_search import YoutubeSearch
+from pytube import YouTube
 
 
 def display_playlist_tracks(playlist):
@@ -35,6 +36,7 @@ def find_and_download_songs(reference_file: str):
     Download tracks from YouTube, referencing the playlist's tracks csv file
     """
     TOTAL_ATTEMPTS = 10
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=>", reference_file)
     saved_playlist_zip_file = ''.join(e for e in reference_file if e.isalnum())
     filepath = os.path.join('Downloads/', saved_playlist_zip_file)
     if not os.path.exists('Downloads/{}/'.format(saved_playlist_zip_file)):
@@ -43,6 +45,7 @@ def find_and_download_songs(reference_file: str):
     path = Path(path)
     fpath = (path / reference_file).with_suffix('.csv')
     with fpath.open(mode="r", encoding='utf-8') as file:
+        
         line_count = 0
         for row in file:
             if line_count == 0:
@@ -68,17 +71,19 @@ def find_and_download_songs(reference_file: str):
                     continue
                 # run you-get to fetch and download the link's audio
                 print("Initiating download for {}.".format(text_to_search))
-                video_info = yt_dlp.YoutubeDL().extract_info(
-                    url=best_url, download=False)
-                filename = f"{video_info['title']}.mp3"
-                options = {
-                    'cachedir': False,
-                    'format': 'bestaudio/best',
-                    'keepvideo': False,
-                    'outtmpl': filepath + '/' + filename,
-                }
-                with yt_dlp.YoutubeDL(options) as ydl:
-                    ydl.download([best_url])
+                video = YouTube(best_url)    # yt_dlp.YoutubeDL().extract_info(url=best_url, download=False)
+                filename = f"{video.title}.mp3"
+                stream = video.streams.filter(only_audio=True).first()
+                stream.download(output_path=filepath, filename=filename)
+                print(f"Download for {text_to_search} complete")
+                # options = {
+                #     'cachedir': False,
+                #     'format': 'bestaudio/best',
+                #     'keepvideo': False,
+                #     'outtmpl': filepath + '/' + filename,
+                # }
+                # with yt_dlp.YoutubeDL(options) as ydl:
+                #     ydl.download([best_url])
     print(filepath)
     # write downloaded playlist folder and zip it
     shutil.make_archive(filepath, 'zip', filepath)
