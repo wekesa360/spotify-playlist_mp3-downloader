@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/main.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/apple-touch-icon.png")>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../static/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../static/img/favicon-16x16.png">
     <link rel="manifest" href="../static/img/site.webmanifest">
@@ -15,8 +16,8 @@
 <div class="tilesWrapHome">
     <div>
         <img src="{{ url_for('static', filename='logo.png') }}">
-        <h3>PlayIt. Download your favourite spotify playlists to your local storage and access them whenever and however you want to.</h3>
-         <a href="{{ url_for('spotify_login')}}"><button>Login to Spotify</button></a>
+        <h3 class="text-white">PlayIt. Download your favourite spotify playlists to your local storage and access them whenever and however you want to.</h3>
+         <a href="{{ url_for('spotify_login')}}"><button class="btn btn-primary">Login to Spotify</button></a>
    </div>
 </div>
 
