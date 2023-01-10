@@ -1,8 +1,14 @@
 $(document).ready(function() {
-$("#btnFetch").click(function() {
-// add spinner to button
-$(this).html(
-'<i class="fa fa-circle-o-notch fa-spin"></i> converting...'
-);
-});
+    
+    $("#loader").removeClass("load");
+
+    $("#btnFetch").click(function() {
+        console.log("Ready to go!")
+        // add spinner to button
+        $(this).html(
+        '<i class="fa text-whites"> converting...</i>'
+        );
+        
+        $("#loader").addClass("load");
+    });
 });
