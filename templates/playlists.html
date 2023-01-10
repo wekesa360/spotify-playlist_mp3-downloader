@@ -10,7 +10,8 @@
                   <h5 class="card-title text-white">{{ key }}</h5>
                   <form method="post" action="/available/playlists">
                     <button class="spinner-button btn btn-primary mb-2 text-white" name="view_tracks_button"  value="{{ key }}">View</button>
-                    <button class="spinner-button btn btn-primary mb-2 text-white" name="download_button" value="{{ key }}">Convert</button>
+                    <button id="btnFetch" class="spinner-button mb-2 text-white" name="download_button" value="{{ key }}">Convert</button>
+                    <div id="loader" class=" load text-center"></div>
                 </form>
                 </div>
               </div>
