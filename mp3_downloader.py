@@ -23,11 +23,6 @@ def display_playlist_tracks(playlist):
             track = "{} - {}: spotify_url: {}".format(row['name'], row['artists'], row['spotify_url'])
             tracks.append(track)
             line_count += 1
-        i = 0
-        # while i != len(tracks) - 1:
-        #     print("{}. {}".format(i, tracks[i]))
-        #     i += 1
-        # print(f'Processed {line_count} lines.')
         return tracks
 
 
@@ -36,7 +31,6 @@ def find_and_download_songs(reference_file: str):
     Download tracks from YouTube, referencing the playlist's tracks csv file
     """
     TOTAL_ATTEMPTS = 10
-    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=>", reference_file)
     saved_playlist_zip_file = ''.join(e for e in reference_file if e.isalnum())
     filepath = os.path.join('Downloads/', saved_playlist_zip_file)
     if not os.path.exists('Downloads/{}/'.format(saved_playlist_zip_file)):
@@ -76,14 +70,6 @@ def find_and_download_songs(reference_file: str):
                 stream = video.streams.filter(only_audio=True).first()
                 stream.download(output_path=filepath, filename=filename)
                 print(f"Download for {text_to_search} complete")
-                # options = {
-                #     'cachedir': False,
-                #     'format': 'bestaudio/best',
-                #     'keepvideo': False,
-                #     'outtmpl': filepath + '/' + filename,
-                # }
-                # with yt_dlp.YoutubeDL(options) as ydl:
-                #     ydl.download([best_url])
     print(filepath)
     # write downloaded playlist folder and zip it
     shutil.make_archive(filepath, 'zip', filepath)
