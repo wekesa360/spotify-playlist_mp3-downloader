@@ -92,7 +92,8 @@ def view_playlist():
                 playlist_id = key[1]
                 # view track
                 tracks = sp_auth.get_playlist_tracks(playlist_id)
-                return render_template('tracks.html', tracks=tracks)
+                return render_template('tracks.html', tracks=tracks, user_name=user_name,
+                                        user_images=user_images)
             if request.form.get('download_button') == key[0]:
                 playlist_id = key[1]
                 playlist_name = key[0]
