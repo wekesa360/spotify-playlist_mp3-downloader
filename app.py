@@ -4,7 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 import spotify.spotify_client as sp_auth
 from mp3_downloader import find_and_download_songs
 import os
-import datetime
+import time
+import schedule
+from utils import delete_downloaded_files
 from dotenv import load_dotenv
 
 load_dotenv('.env')
@@ -19,21 +21,7 @@ db = SQLAlchemy(app)
 app.config['SESSION_SQLALCHEMY'] = db
 Session(app)
 
-
-# @app.route('/set/<value>')
-# def set_session(value):
-#     session['value'] = value
-#     return f'The value you set is: {value}'
-
-
-# @app.route('/get')
-# def get_session():
-#     return f"THe value in the session is: {session.get('value')}"
-
-
-
-
-
+PORT = 5000
 
 @app.route('/')
 def homepage():
@@ -122,5 +110,5 @@ def download(file_name):
 
 
 if __name__ == "__main__":
-    PORT = 5000
+    schedule.every().day.at("00:00").do(delete_downloaded_files())
     app.run(debug=True, port=PORT)

@@ -4,6 +4,7 @@ import shutil
 import os
 import yt_dlp
 from youtube_search import YoutubeSearch
+from utils import check_song_in_downloads, move_song_to_playlist
 from pytube import YouTube
 
 
@@ -64,9 +65,14 @@ def find_and_download_songs(reference_file: str):
                     print("No valid URLs found for {}, skipping track.".format(text_to_search))
                     continue
                 # run you-get to fetch and download the link's audio
+
                 print("Initiating download for {}.".format(text_to_search))
                 video = YouTube(best_url)    # yt_dlp.YoutubeDL().extract_info(url=best_url, download=False)
                 filename = f"{video.title}.mp3"
+                downloaded_file_path = check_song_in_downloads(filename, './Downloads')
+                if downloaded_file_path:
+                    move_song_to_playlist(downloaded_file_path, filepath)
+                    continue
                 stream = video.streams.filter(only_audio=True).first()
                 stream.download(output_path=filepath, filename=filename)
                 print(f"Download for {text_to_search} complete")
