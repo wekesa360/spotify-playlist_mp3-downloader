@@ -23,11 +23,11 @@
 <div>
     <ul class="tilesWrap">
 	<li>
-        <img  src={{ playlist_cover_img }}>
+        <img  src={{ playlist_cover_img }} alt="Playlist Cover Image">
 		<p>
 		{{ file_name }}
 		</p>
-         <button><a href="/download/{{ download_zip }}" download >Download</a></button>
+         <button><a href="{{ url_for('download', file_name=download_zip) }}" download >Download</a></button>
 	</li>
 </ul>
 </div>

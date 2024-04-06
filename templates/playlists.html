@@ -2,15 +2,15 @@
 {% block content %}
 <div class="container-fluid ">
     <div class="d-flex flex-wrap justify-content-center">
-        {% for key, value in playlists.items() %}
+        {% for playlist_name, playlist_image in playlists.items() %}
         <div class="cardWrap flex-row justify-content-center">
             <div class="card my-4 mx-4 " style="width: 18rem;">
-                <img class="rounded m-2" src="{{ value }}" alt="{{ key }}">
+                <img class="rounded m-2" src="{{ playlist_image }}" alt="Playlist Cover Image">
                 <div class="card-body">
-                  <h5 class="card-title text-white">{{ key }}</h5>
+                  <h5 class="card-title text-white">{{ playlist_name }}</h5>
                   <form method="post" action="/available/playlists">
-                    <button class="spinner-button btn btn-primary mb-2 text-white" name="view_tracks_button"  value="{{ key }}">View</button>
-                    <button id="btnFetch" class="spinner-button mb-2 text-white" name="download_button" value="{{ key }}">Convert</button>
+                    <button class="spinner-button btn btn-primary mb-2 text-white" name="view_tracks_button"  value="{{ playlist_name }}">View</button>
+                    <button id="btnFetch" class="spinner-button mb-2 text-white" name="download_button" value="{{ playlist_name }}">Convert</button>
                     <div id="loader" class=" load text-center"></div>
                 </form>
                 </div>
