@@ -1,149 +1,159 @@
 body {
-	background: url('https://images.pexels.com/photos/128611/pexels-photo-128611.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
-	no-repeat center center;
-	background-size: cover;
-	display: grid;
-	font-family: 'Inconsolata', monospace;
-	min-height: 100vh;
-	place-items: center;
-  }
+  background: url("https://images.pexels.com/photos/128611/pexels-photo-128611.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
+    no-repeat center center;
+  background-size: cover;
+  display: grid;
+  font-family: "Inconsolata", monospace;
+  min-height: 100vh;
+  place-items: center;
+}
 
 nav {
-	background-color: rgb(228, 228, 228);
+  background-color: rgb(228, 228, 228);
 }
 
-.user{
-    color: #b7b7b7;
-    margin-bottom: 5px;
-    margin-top: 5px;
+.user {
+  color: #b7b7b7;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
-.user-img{
-    border-radius: 100%;
+.user-img {
+  border-radius: 100%;
 }
 
 .cardWrap button {
-	display: inline-block;
-	position: relative;
-	vertical-align: top;
-	font-family: 'helvetica', san-serif, serif;
-	background: #262a2b;
-	border: 1px solid #252727;
-	text-align: left;
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  font-family: "helvetica", san-serif, serif;
+  background: #262a2b;
+  border: 1px solid #252727;
+  text-align: left;
 }
 
 .trackTiles li {
-	height: 800px;
-	overflow-y: scroll;
-	padding: 30px 20px 40px;
-	vertical-align: top;
-	margin: 10px;
-	color:rgb(219, 219, 219);
-	background-color: rgb(38, 42, 43, 0.8);
-	border: 1px solid #252727;
-	text-align: left;
+  height: 800px;
+  overflow-y: scroll;
+  padding: 30px 20px 40px;
+  vertical-align: top;
+  margin: 10px;
+  color: rgb(219, 219, 219);
+  background-color: rgb(38, 42, 43, 0.8);
+  border: 1px solid #252727;
+  text-align: left;
 }
 
 .cardWrap div:hover h2 {
-	top: 0px;
-	opacity: 1;
+  top: 0px;
+  opacity: 1;
 }
 
 .cardWrap div:after {
-	position: absolute;
-	width: 60%;
-	height: 100%;
-	left: 0;
-	top: 0;
-	background: rgba(255, 255, 255, 0.002);
-	z-index: -1;
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, 0.002);
+  z-index: -1;
 }
 
 .card {
-	background-color: rgb(37, 39, 39, 0.5);
+  background-color: rgb(37, 39, 39, 0.5);
 }
 
-a, a:hover, a:focus, a:active {
-      text-decoration: none;
-      color: inherit;
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
 }
-
 
 .tilesWrapHome {
-	background-color: rgb(38, 42, 43, 0.8);
-	margin: 0px 400px !important;
-	padding: 50px;
-	list-style: none;
-	text-align: center;
-	font-family: 'Inconsolata', monospace !important;
+  background-color: rgb(38, 42, 43, 0.8);
+  margin: 0px 400px !important;
+  padding: 50px;
+  list-style: none;
+  text-align: center;
+  font-family: "Inconsolata", monospace !important;
 }
 
 .login-button {
-	padding: 15px !important;
-	margin: 25px !important;
-	background-color: #2c2c2c !important;
-	color: #fff !important;
-	border: solid white 1px !important;
+  padding: 15px !important;
+  margin: 25px !important;
+  background-color: #2c2c2c !important;
+  color: #fff !important;
+  border: solid white 1px !important;
 }
 
 .login-button:hover {
-	background-color: #fff !important;	
-	color: #252727 !important;
-	border: solid #252727 1px !important;
+  background-color: #fff !important;
+  color: #252727 !important;
+  border: solid #252727 1px !important;
 }
 
- .spinner-button {
-     border: 2px solid #000;
-     display: inline-block;
-     padding: 8px 20px 9px;
-     font-size: 12px;
-     color: #000;
-     background-color: transparent
- }
+.spinner-button {
+  border: 2px solid #000;
+  display: inline-block;
+  padding: 8px 20px 9px;
+  font-size: 12px;
+  color: #000;
+  background-color: transparent;
+}
 
- .spinner-button:hover {
-     background-color: #000;
-     border: 2px solid #000;
-     color: #fff
- }
+.spinner-button:hover {
+  background-color: #000;
+  border: 2px solid #000;
+  color: #fff;
+}
 
- .spinner-button i {
-     color: #fff
- }
+.spinner-button i {
+  color: #fff;
+}
 
- .spinner-button:hover i {
-     color: #fff
- }
+.spinner-button:hover i {
+  color: #fff;
+}
 
- .fa {
-     color: #fff
- }
+.fa {
+  color: #fff;
+}
 
- .fa:hover {
-     color: #fff
- }
+.fa:hover {
+  color: #fff;
+}
 
- .row {
-	flex-direction: row;
- }
+.row {
+  flex-direction: row;
+}
 
- .loader {
-	border: 16px solid #f3f3f3;
-	border-radius: 50%;
-	border-top: 16px solid #3498db;
-	width: 120px;
-	height: 120px;
-	-webkit-animation: spin 2s linear infinite; /* Safari */
-	animation: spin 2s linear infinite;
-	margin: 5px;
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  margin: 5px;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
   }
-  
-  /* Safari */
-  @-webkit-keyframes spin {
-	0% { -webkit-transform: rotate(0deg); }
-	100% { -webkit-transform: rotate(360deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
   }
-  
-  @keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
+  100% {
+    transform: rotate(360deg);
+  }
+}

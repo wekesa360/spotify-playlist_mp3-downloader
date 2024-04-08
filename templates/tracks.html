@@ -1,14 +1,10 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
-
-<ul class="tilesWrap trackTiles" >
-	<li>
-        {% for item in tracks %}
-		<p>
-		{{ loop.index}}. {{ item }}
-		</p>
-        {% endfor %}
-	</li>
+<ul class="tilesWrap trackTiles">
+  <li>
+    {% for item in tracks %}
+    <p>{{ loop.index}}. {{ item }}</p>
+    {% endfor %}
+  </li>
 </ul>
 {% endblock content %}
