@@ -5,6 +5,7 @@ from spotify.spotify_client import SpotifyClient
 from mp3_downloader import PlaylistDownloader
 import os
 import time
+from flask_socketio import SocketIO, emit
 import schedule
 from utils import delete_downloaded_files
 from dotenv import load_dotenv
@@ -23,12 +24,15 @@ Session(app)
 PORT = 5000
 
 sp_client = SpotifyClient()
-
+socketio = SocketIO(app)
 
 @app.route("/")
 def homepage():
     return render_template("index.html")
 
+@socketio.on(message='connect', namespace='/download/stream')
+def test_connect():
+    emit('my response', {'data': 'Connected'})
 
 @app.route("/spotify/login")
 def spotify_login():
@@ -83,7 +87,7 @@ def view_playlist():
                 playlist_cover_img = playlists_names[playlist_name]
                 sp_client.write_playlist_tracks(playlist_id, playlist_name)
 
-                playlist_downloader = PlaylistDownloader(playlist_name)
+                playlist_downloader = PlaylistDownloader(playlist_name, socketio)
                 playlist_downloader.find_and_download_songs()
 
                 formatted_playlist_name = "".join(
@@ -115,4 +119,4 @@ def download(file_name):
 
 if __name__ == "__main__":
     schedule.every().day.at("00:00").do(delete_downloaded_files)
-    app.run(debug=True, port=PORT)
+    socketio.run(app, debug=True, port=PORT)

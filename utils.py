@@ -28,10 +28,15 @@ def check_song_in_downloads(song_title, playlist_directory):
     return None
 
 
-def move_song_to_playlist(file_path, current_playlist_folder):
+def move_song_to_playlist(file_path, current_playlist_folder, socketio=None):
     """Move a song file to the current playlist folder"""
+    if os.path.exists(os.path.join(current_playlist_folder, os.path.basename(file_path))):
+        print(f"{os.path.basename(file_path)} already exists in {current_playlist_folder}.")
+        socketio.emit("my response", {"data": os.path.basename(file_path)}, namespace="/download/stream")
+        return False
     song_title = os.path.basename(file_path)
     destination_path = os.path.join(current_playlist_folder, song_title)
     shutil.move(file_path, destination_path)
     print(f"{song_title} was moved to {destination_path}.")
+    socketio.emit("my response", {"data": song_title}, namespace="/download/stream")
     return True

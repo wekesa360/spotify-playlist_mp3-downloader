@@ -1,18 +1,19 @@
 import csv
 from pathlib import Path
 import shutil
-import os
-import yt_dlp
 from youtube_search import YoutubeSearch
+from itertools import islice
 from utils import check_song_in_downloads, move_song_to_playlist
 from pytube import YouTube
 
 
+
 class PlaylistDownloader:
-    def __init__(self, playlist_name):
+    def __init__(self, playlist_name, socketio):
         self.playlist_name = playlist_name
         self.playlist_tracks_path = Path("playlist_tracks_csv/")
         self.downloads_path = Path("Downloads/")
+        self.socketio = socketio
 
     def display_playlist_tracks(self):
         """Display playlist tracks from saved csv file"""
@@ -39,15 +40,22 @@ class PlaylistDownloader:
 
         fpath = self.playlist_tracks_path / f"{self.playlist_name}.csv"
 
+        if fpath.exists():
+            print(f"The file {fpath} exists.")
+        else:
+            print(f"The file {fpath} does not exist.")
+
         with fpath.open(mode="r", encoding="utf-8") as file:
             csv_reader = csv.reader(file)
-            next(csv_reader)  # Skip header row
-
+            csv_reader = islice(csv_reader, 2, None)
             for row in csv_reader:
-                name, artist = row[0], row[1]
-                text_to_search = f"{artist} - {name}"
-                best_url = None
-                attempts_left = TOTAL_ATTEMPTS
+                if len(row) >= 2:
+                    name, artist = row[0], row[1]
+                    text_to_search = f"{artist} - {name}"
+                    best_url = None
+                    attempts_left = TOTAL_ATTEMPTS
+                else:
+                    print(f"Skipping row {row} because it does not have at least two elements.")
 
                 while attempts_left > 0:
                     try:
@@ -76,12 +84,14 @@ class PlaylistDownloader:
                 )
 
                 if downloaded_file_path:
-                    move_song_to_playlist(downloaded_file_path, filepath)
+                    if move_song_to_playlist(downloaded_file_path, filepath, socketio=self.socketio):
+                        stream = video.streams.filter(only_audio=True).first()
+                        stream.download(output_path=filepath, filename=filename)
+                        print(f"Download for {text_to_search} complete")
+                        self.socketio.emit('my response', {'data': f"Download for {text_to_search} complete"}, namespace='/download/stream')
                     continue
 
-                stream = video.streams.filter(only_audio=True).first()
-                stream.download(output_path=filepath, filename=filename)
-                print(f"Download for {text_to_search} complete")
+               
 
         # Write downloaded playlist folder and zip it
         shutil.make_archive(filepath, "zip", filepath)

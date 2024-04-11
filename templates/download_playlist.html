@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/favicon-16x16.png">
+    <link rel="manifest" href="../static/img/site.webmanifest">
+    <script type="text/javascript" src="../static/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.min.js"></script>
+    <title>PlayIt - download</title>
+</head>
+<body>
+<div class="tilesWrap user">
+    <div id="mySidenav" class="sidenav">
+        <a href="{{ url_for( 'view_playlist') }}" id="back">Back</a>
+    </div>
+    <div>
+    <h2 class="heading">Download Playlist</h2>
+    </div>
+</div>
+<div id="logs"></div>
+<div>
+    <ul class="tilesWrap">
+	<li>
+        <img  src={{ playlist_cover_img }} alt="Playlist Cover Image">
+		<p>
+		{{ file_name }}
+		</p>
+         <button class="btn mb-2 text-white" ><a href="{{ url_for('download', file_name=download_zip) }}" download >Download</a></button>
+	</li>
+</ul>
+</div>
+
+<script>
+    var socket = io('/download/stream');
+  
+    socket.on('connect', function() {
+      console.log('Connected to server');
+    });
+  
+    socket.on('my response', function(msg) {
+      console.log('Received message:', msg.data);
+      document.getElementById('logs').innerHTML += msg.data + '<br>';
+    });
+  </script>
+</body>
+</html>

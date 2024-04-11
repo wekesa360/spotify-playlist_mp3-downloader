@@ -2,6 +2,8 @@ flask
 flask-session
 flask-sqlalchemy
 spotipy
-yt-dlp
 youtube-search
 python-dotenv
+pytube
+schedule
+flask-socketio
