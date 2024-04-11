@@ -1,0 +1,26 @@
+name: Black Formatter
+
+on: [push]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+      
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install black
+      
+
+    - name: Run Black Formatter
+      run: |
+        black --check $(git ls-files '*.py')
