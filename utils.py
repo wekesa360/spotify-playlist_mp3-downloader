@@ -2,6 +2,7 @@ import os
 import time
 import shutil
 
+
 def delete_downloaded_files(directory, time_threshold):
     """Delete files and folders from a directory that are older than a given time threshold"""
     for root, dirs, files in os.walk(directory, topdown=False):
@@ -17,6 +18,7 @@ def delete_downloaded_files(directory, time_threshold):
                 shutil.rmtree(folder_path)
     return True
 
+
 def check_song_in_downloads(song_title, playlist_directory):
     """Check if a song is already available in one of the playlist folders"""
     for root, _, files in os.walk(playlist_directory):
@@ -24,6 +26,7 @@ def check_song_in_downloads(song_title, playlist_directory):
             if song_title in file:
                 return os.path.join(root, file)
     return None
+
 
 def move_song_to_playlist(file_path, current_playlist_folder):
     """Move a song file to the current playlist folder"""
