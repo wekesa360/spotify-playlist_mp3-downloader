@@ -7,3 +7,4 @@ python-dotenv
 pytube
 schedule
 flask-socketio
+gunicorn

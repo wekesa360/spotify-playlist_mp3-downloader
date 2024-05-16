@@ -10,7 +10,7 @@ import schedule
 from utils import delete_downloaded_files
 from dotenv import load_dotenv
 
-load_dotenv(".env")
+# load_dotenv(".env")
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
